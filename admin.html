@@ -323,9 +323,8 @@ let parts = [];
 let currentViewingEnquiryId = null;
 let currentEncodedImage = "";
 
-// CORRECTED: Points directly to your online InfinityFree amj database subdomain address
-
-const BACKEND_URL = 'https://your-subdomain.infinityfreeapp.com/api.php';
+// RECONFIGURED PATH: Matches the absolute location of your api file
+const BACKEND_URL = 'api.php';
 
 function showPage(pageId, element) {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -600,7 +599,6 @@ async function handleFormSavePart(event) {
     });
     
     if(!response.ok) throw new Error('Database write failure');
-    const result = response.json();
     
     closeModal('partModal');
     await syncDatabaseRecords();
