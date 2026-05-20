@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Database Connection Settings
-$host = 'localhost';
-$user = 'root';
-$pass = ''; // Default XAMPP MySQL password is empty
-$dbname = 'amj_db';
+$host = 'sql111.infinityfree.com';
+$user = 'if0_41972701';
+$pass = '5LA9TX6GtjBPlc'; // Default XAMPP MySQL password is empty
+$dbname = 'if0_41972701_amj_db';
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
