@@ -138,7 +138,7 @@ tr:last-child td{border-bottom:none}
   <div class="topbar">
     <div class="topbar-title" id="pageTitle">Dashboard Overview</div>
     <div class="topbar-right">
-      <span class="tb-badge">XAMPP RUNTIME ACTIVE</span>
+      <span class="tb-badge">INFINITYFREE CLOUD RUNTIME ACTIVE</span>
     </div>
   </div>
 
@@ -323,7 +323,8 @@ let parts = [];
 let currentViewingEnquiryId = null;
 let currentEncodedImage = "";
 
-const BACKEND_URL = 'https://your-subdomain.infinityfreeapp.com/api.php';
+// CORRECTED: Points directly to your online InfinityFree amj database subdomain address
+const BACKEND_URL = 'https://if0_41972701_amj_db.infinityfreeapp.com/api.php';
 
 function showPage(pageId, element) {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -334,7 +335,6 @@ function showPage(pageId, element) {
     document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
     element.classList.add('active');
   } else {
-    // Fallback sync if accessed via internal buttons
     document.querySelectorAll('.sb-item').forEach(i => {
       if(i.textContent.toLowerCase().includes(pageId)) i.classList.add('active');
       else i.classList.remove('active');
@@ -403,7 +403,6 @@ function updateMetricsDashboard() {
   }
 }
 
-// ADDED: Clear date input fields action
 function clearDateFilters() {
   document.getElementById('filterStartDate').value = "";
   document.getElementById('filterEndDate').value = "";
@@ -414,7 +413,6 @@ function renderEnquiries() {
   const filterVal = document.getElementById('filterStatus').value;
   const searchVal = document.getElementById('searchEnq').value.toLowerCase();
   
-  // ADDED: Get date filtering string configurations
   const startDateVal = document.getElementById('filterStartDate').value;
   const endDateVal = document.getElementById('filterEndDate').value;
 
@@ -423,12 +421,10 @@ function renderEnquiries() {
   
   let filtered = [...enquiries];
 
-  // 1. Status Filter Rule
   if(filterVal !== 'all') {
     filtered = filtered.filter(e => e.status === filterVal);
   }
 
-  // 2. ADDED: Date Range Evaluation Logic
   if (startDateVal) {
     const startLimit = new Date(startDateVal + "T00:00:00");
     filtered = filtered.filter(e => new Date(e.date) >= startLimit);
@@ -438,7 +434,6 @@ function renderEnquiries() {
     filtered = filtered.filter(e => new Date(e.date) <= endLimit);
   }
 
-  // 3. Text Search Filtering Rule
   if(searchVal) {
     filtered = filtered.filter(e => 
       e.name.toLowerCase().includes(searchVal) || 
@@ -449,7 +444,6 @@ function renderEnquiries() {
     );
   }
 
-  // Render Dashboard Module Recent Rows (Shows up to 7 items from full database)
   dashBody.innerHTML = "";
   const recentItems = enquiries.slice(0, 7);
   if(recentItems.length === 0) {
@@ -468,7 +462,6 @@ function renderEnquiries() {
     });
   }
 
-  // Render Main Component Enquiries Tab
   mainBody.innerHTML = "";
   if(filtered.length === 0) {
     mainBody.innerHTML = `<tr><td colspan="6" class="empty"><div class="empty-ico">🔍</div><p>No communications fit criteria.</p></td></tr>`;
